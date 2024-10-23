@@ -19,104 +19,47 @@ body {
   align-items: center;
   background-color: #091921;
 }
+
 .heading {
-  color: #fff;
-  text-align: center;
-  font-size: 2em;
-  margin: 2em 0;
-}
-.images {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 1em;
-  margin: 20px 0; /* Space around the images */
-  gap: 20px; /* Adds spacing between images */
-}
-.images img {
-  width: 100%;
-  cursor: pointer;
-  margin: auto;
-  transition: 0.6s all ease;
-}
-.images img:hover {
-  transform: scale(0.9);
-}
-.navigation-buttons {
-    position: fixed;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .navigation-buttons .button {
-    background-color: #007BFF;
-    color: white;
-    padding: 10px;
-    text-decoration: none;
-    border-radius: 50%;  /* Make buttons round */
-    margin-bottom: 10px;
-    font-size: 2em;  /* Larger for arrow-like buttons */
+    color: #fff;
     text-align: center;
+    font-size: 2em;
+    margin: 2em 0;
+  }
+  
+  .images {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1em;
+    margin: 20px 0; /* Space around the images */
+  }
+  
+  .images img {
+    width: 100%;
     cursor: pointer;
-    position: relative;  /* For tooltip positioning */
-    width: 60px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s ease;
+    transition: 0.3s all ease;
   }
-
   
-  .navigation-buttons .button:hover {
-    background-color: #414346;
+  .images img:hover {
+    transform: scale(0.9);
   }
-
- /* Tooltip for showing button label on hover */
-.navigation-buttons .button::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    top: 50%;
-    right: 120%;  /* Tooltip appears to the left of the button */
-    background-color: #333;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
+  
+  /* Modal Styles */
+  .modal {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(236, 230, 230, 0.7);
+    color: #fff;
+    z-index: 1;
+    overflow: auto;
     opacity: 0;
-    visibility: hidden;
-    transform: translateY(-50%);
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    white-space: nowrap;  /* Prevent text wrapping */
+    pointer-events: none;
   }
   
-  /* Show the tooltip on hover */
-  .navigation-buttons .button:hover::after {
-    opacity: 1;
-    visibility: visible;
-  }
-  
-  
-  
-  
-  
-
-
-.modal {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  background-color: rgba(236, 230, 230, 0.7);
-  color: #fff;
-  z-index: 1;
-  overflow: auto;
-  opacity: 0;
-  pointer-events: none;
-}
-.modalContent {
+  .modalContent {
     position: relative; /* Set the modal content as relative to position the buttons on top */
     display: flex;
     flex-direction: column;
@@ -124,8 +67,8 @@ body {
     align-items: center;
     min-height: 100vh;
   }
-
-.modalImg {
+  
+  .modalImg {
     padding-top: 15px;
     width: 90%;  /* Make the image width 90% of the viewport width */
     max-width: 95vw;  /* Ensure the image doesn't go beyond the viewport width */
@@ -134,16 +77,15 @@ body {
     position: relative;
   }
   
+  .modalTxt {
+    margin-top: 1em;
+  }
   
-.modalTxt {
-  margin-top: 1em;
-}
-.modalNav {
-  margin-top: 1em;
-}
-
-
-.modalNav button {
+  .modalNav {
+    margin-top: 1em;
+  }
+  
+  .modalNav button {
     position: absolute;
     top: 90%; /* Center vertically */
     transform: translateY(-50%); /* Center the button properly */
@@ -156,11 +98,11 @@ body {
     z-index: 3; /* Make sure buttons are above image */
     font-family: Arial, Helvetica, sans-serif;
   }
-
+  
   .modalNav button:hover {
     background-color: rgba(0, 0, 0, 0.8);
   }
-
+  
   .prevBtn {
     left: 5%;  /* Positioned to the left of the image */
   }
@@ -168,9 +110,8 @@ body {
   .nextBtn {
     right: 5%; /* Positioned to the right of the image */
   }
-
-
-.close {
+  
+  .close {
     position: absolute;
     top: 2%;  /* Adjust to fine-tune the position within the image */
     right: 5.2%; /* Adjust to fine-tune the position within the image */
@@ -181,27 +122,164 @@ body {
     background-color: rgba(137, 128, 128, 0.5);
     padding: 0.3em 0.5em;
     border-radius: 25%;  /* Rounded button */
+  }
+  
+  .close:hover {
+    color: #dfd0d0;  /* Optional: Add a hover effect to change the color when hovering */
+  }
+
+   /* Modal Appearance */
+ .modal.appear {
+    opacity: 1;
+    pointer-events: all;
+  }
+  
+  .modal.appear .modalImg,
+  .modal.appear .modalTxt {
+    animation: zoom 0.3s linear;
+  }
+  
+  @keyframes zoom {
+    from {
+      transform: scale(0);
+    }
+    to {
+      transform: scale(1);
+    }
+  }   
+  
+
+  .arrow {
+    position: absolute;
+    top: 55%;
+    transform: translateY(-50%); /* Vertically center the arrows */
+    cursor: pointer;
+}
+ 
+ 
+  .arrow span {
+    display: block;
+    width: 1.3vw;
+    height: 1.3vw;
+    border-bottom: 8px solid rgb(212, 210, 222);
+    border-right: 8px solid rgb(120, 119, 123);
+    transform: rotate(45deg);
+    animation: animateArrow 2s infinite;
+    border-radius: 2px;
     
   }
   
+  .next-project, .back-portfolio {
+    position: absolute;
+    pointer-events: all; /* Ensure buttons are clickable */
+}
 
-.close:hover {
-    color: #dfd0d0;  /* Optional: Add a hover effect to change the color when hovering */
+.navigation-buttons a:hover .arrow {
+    transform: scale(1.2); /* Only scale on hover */
+}
+.next-project {
+    right: 8%; /* Stick the next arrow to the right side */
+    top: 57%;
+    position: absolute;
+transform: translate(-50%, -50%) rotate(270deg);
+cursor: pointer;
+}
+
+.back-portfolio {
+    left: 7%; /* Stick the back arrow to the left side */
+    top: 55%;
+    position: absolute;
+transform: translate(-50%, -50%) rotate(90deg);
+cursor: pointer;
+    
+}
+
+/* Ensure correct arrow direction */
+.next-arrow span {
+    transform: rotate(45deg); /* Right-pointing arrow */
+}
+
+.prev-arrow span {
+    transform: rotate(135deg); /* Left-pointing arrow */
+}
+
+/* Hover effect for next (right arrow) */
+.next-project:hover .next-arrow span {
+    transform: scale(1.2) rotate(45deg); /* Only scale the right arrow */
+}
+
+/* Hover effect for previous (left arrow) */
+.back-portfolio:hover .prev-arrow span {
+    transform: scale(1.2) rotate(135deg); /* Only scale the left arrow */
+}
+  .arrow span:nth-child(2) {
+    animation-delay: -0.2s;
     
   }
-.modal.appear {
-  opacity: 1;
-  pointer-events: all;
-}
-.modal.appear .modalImg,
-.modal.appear .modalTxt {
-  animation: zoom 0.3s linear;
-}
-@keyframes zoom {
-  from {
-    transform: scale(0);
+  
+  .arrow span:nth-child(3) {
+    animation-delay: -0.4s;
+  
   }
-  to {
-    transform: scale(1);
+  
+  /* Arrow animation */
+  @keyframes animateArrow {
+    0% {
+      opacity: 0;
+      transform: rotate(45deg) translate(-20px, -20px);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: rotate(45deg) translate(20px, 20px);
+    }
   }
-}
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  
+
+  
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

@@ -3,10 +3,20 @@ const modal = document.querySelector(".modal"); // The modal element
 const modalImg = document.querySelector(".modalImg"); // Image in the modal
 const modalTxt = document.querySelector(".modalTxt"); // Text in the modal
 const close = document.querySelector(".close"); // Modal close button
-const prevBtn = document.querySelector(".prev-arrow"); // Modal 'Prev' arrow
-const nextBtn = document.querySelector(".next-arrow"); // Modal 'Next' arrow
+const prevBtn = document.querySelector(".prevBtn"); // Modal 'Prev' arrow
+const nextBtn = document.querySelector(".nextBtn"); // Modal 'Next' arrow
 
 let currentImageIndex; // To track the current image index
+let zoomLevel = 1; // Track zoom level for each image
+let isDragging = false; // To track if the image is being dragged
+let startX = 0;
+let startY = 0;
+let offsetX = 0;
+let offsetY = 0;
+let maxOffsetX = 0;
+let maxOffsetY = 0;
+let dragStartX = 0;
+let dragStartY = 0;
 
 // Open the modal and show the clicked image
 images.forEach((image, index) => {
@@ -24,6 +34,12 @@ images.forEach((image, index) => {
 function showImage(index) {
   modalImg.src = images[index].src; // Set the modal image source
   modalTxt.innerHTML = images[index].alt; // Set the modal text (alt text)
+  modalImg.style.transform = `translate(0px, 0px) scale(1)`; // Reset zoom and position when switching images
+  zoomLevel = 1; // Reset zoom level
+  offsetX = 0;
+  offsetY = 0;
+  modalImg.style.cursor = "default"; // Reset cursor when zoom level is 1
+  document.querySelector(".close").focus(); // Auto focus on the close button
 }
 
 // Handle keyboard navigation within the modal
@@ -52,6 +68,8 @@ function nextImage() {
 // Close the modal
 function closeModal() {
   modal.classList.remove("appear"); // Hide the modal
+  zoomLevel = 1; // Reset zoom when modal closes
+  modalImg.style.transform = `scale(${zoomLevel})`;
   document.removeEventListener("keydown", handleKeyboardNavigation);  // Remove the keyboard navigation when modal is closed
 }
 
@@ -63,3 +81,79 @@ nextBtn.addEventListener("click", nextImage);
 
 // Event listener for closing the modal
 close.addEventListener("click", closeModal);
+
+// Zoom in/out with mouse wheel
+modalImg.addEventListener("wheel", (e) => {
+  e.preventDefault(); // Prevent default scrolling
+  const rect = modalImg.getBoundingClientRect(); // Get image dimensions
+  const offsetXRel = (e.clientX - rect.left) / modalImg.width; // Relative X position
+  const offsetYRel = (e.clientY - rect.top) / modalImg.height; // Relative Y position
+
+  // Zoom logic
+  if (e.deltaY < 0) {
+    // Scroll up, zoom in
+    zoomLevel += 0.1;
+  } else {
+    // Scroll down, zoom out
+    zoomLevel -= 0.1;
+  }
+
+  // Set boundaries to prevent zooming out too far
+  zoomLevel = Math.min(Math.max(1, zoomLevel), 3); // Zoom between 100% and 300%
+
+  // Calculate max offset to prevent dragging the image off the screen
+  const imgWidth = modalImg.width * zoomLevel;
+  const imgHeight = modalImg.height * zoomLevel;
+  maxOffsetX = Math.max(0, (imgWidth - modal.clientWidth) / 2);
+  maxOffsetY = Math.max(0, (imgHeight - modal.clientHeight) / 2);
+
+  // Calculate the new offset after zoom, staying within boundaries
+  offsetX = Math.min(Math.max(offsetX - offsetXRel * modalImg.width * (zoomLevel - 1), -maxOffsetX), maxOffsetX);
+  offsetY = Math.min(Math.max(offsetY - offsetYRel * modalImg.height * (zoomLevel - 1), -maxOffsetY), maxOffsetY);
+
+  // Apply the zoom and translation
+  modalImg.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${zoomLevel})`;
+  modalImg.style.transition = "transform 0.2s ease-in-out";
+
+  // Change cursor to grab if zoom level is greater than 1
+  modalImg.style.cursor = zoomLevel > 1 ? "grab" : "default";
+});
+
+// Drag functionality
+modalImg.addEventListener("mousedown", (e) => {
+  if (zoomLevel > 1) { // Enable dragging only when zoomed in
+    isDragging = true;
+    dragStartX = e.pageX; // Set initial drag start X position
+    dragStartY = e.pageY; // Set initial drag start Y position
+    startX = offsetX; // Capture current offset X position
+    startY = offsetY; // Capture current offset Y position
+    modalImg.style.cursor = "grabbing"; // Change cursor to grabbing
+  }
+});
+
+modalImg.addEventListener("mousemove", (e) => {
+  if (isDragging) {
+    e.preventDefault(); // Prevent default image drag
+
+    // Calculate new offsets
+    offsetX = startX + (e.pageX - dragStartX);
+    offsetY = startY + (e.pageY - dragStartY);
+
+    // Keep the image within the modal bounds
+    offsetX = Math.min(Math.max(offsetX, -maxOffsetX), maxOffsetX);
+    offsetY = Math.min(Math.max(offsetY, -maxOffsetY), maxOffsetY);
+
+    // Apply the translation and zoom
+    modalImg.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${zoomLevel})`;
+  }
+});
+
+modalImg.addEventListener("mouseup", () => {
+  isDragging = false;
+  modalImg.style.cursor = zoomLevel > 1 ? "grab" : "default"; // Change back to grab if zoomed in
+});
+
+modalImg.addEventListener("mouseleave", () => {
+  isDragging = false;
+  modalImg.style.cursor = zoomLevel > 1 ? "grab" : "default"; // Reset cursor
+});

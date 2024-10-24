@@ -9,14 +9,12 @@ const nextBtn = document.querySelector(".nextBtn"); // Modal 'Next' arrow
 let currentImageIndex; // To track the current image index
 let zoomLevel = 1; // Track zoom level for each image
 let isDragging = false; // To track if the image is being dragged
-let startX = 0;
-let startY = 0;
-let offsetX = 0;
-let offsetY = 0;
-let maxOffsetX = 0;
-let maxOffsetY = 0;
-let dragStartX = 0;
-let dragStartY = 0;
+let startX = 0; // Track the initial X position of the mouse when dragging starts
+let startY = 0; // Track the initial Y position of the mouse when dragging starts
+let offsetX = 0; // The current X translation of the image
+let offsetY = 0; // The current Y translation of the image
+let maxOffsetX = 0; // Maximum allowed X offset for dragging
+let maxOffsetY = 0; // Maximum allowed Y offset for dragging
 
 // Open the modal and show the clicked image
 images.forEach((image, index) => {
@@ -85,6 +83,7 @@ close.addEventListener("click", closeModal);
 // Zoom in/out with mouse wheel
 modalImg.addEventListener("wheel", (e) => {
   e.preventDefault(); // Prevent default scrolling
+
   const rect = modalImg.getBoundingClientRect(); // Get image dimensions
   const offsetXRel = (e.clientX - rect.left) / modalImg.width; // Relative X position
   const offsetYRel = (e.clientY - rect.top) / modalImg.height; // Relative Y position
@@ -123,10 +122,8 @@ modalImg.addEventListener("wheel", (e) => {
 modalImg.addEventListener("mousedown", (e) => {
   if (zoomLevel > 1) { // Enable dragging only when zoomed in
     isDragging = true;
-    dragStartX = e.pageX; // Set initial drag start X position
-    dragStartY = e.pageY; // Set initial drag start Y position
-    startX = offsetX; // Capture current offset X position
-    startY = offsetY; // Capture current offset Y position
+    startX = e.pageX - offsetX; // Calculate starting X position
+    startY = e.pageY - offsetY; // Calculate starting Y position
     modalImg.style.cursor = "grabbing"; // Change cursor to grabbing
   }
 });
@@ -136,8 +133,8 @@ modalImg.addEventListener("mousemove", (e) => {
     e.preventDefault(); // Prevent default image drag
 
     // Calculate new offsets
-    offsetX = startX + (e.pageX - dragStartX);
-    offsetY = startY + (e.pageY - dragStartY);
+    offsetX = e.pageX - startX;
+    offsetY = e.pageY - startY;
 
     // Keep the image within the modal bounds
     offsetX = Math.min(Math.max(offsetX, -maxOffsetX), maxOffsetX);

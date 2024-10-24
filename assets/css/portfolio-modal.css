@@ -34,12 +34,14 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
   grid-gap: 1em;
   margin: 20px 0; /* Space around the images */
+  
 }
 
 .images img {
   width: 100%;
   cursor: pointer;
   transition: 0.3s all ease;
+  background-color: aliceblue;
 }
 
 .images img:hover {
@@ -80,6 +82,7 @@ body {
   max-height: 95vh;  /* Ensure the image doesn't exceed the viewport height */
   margin: auto;  /* Center the image within the modal */
   position: relative;
+  background-color: #fff;
 }
 
 .modalTxt {
@@ -176,7 +179,7 @@ body {
     transform: scale(1.2); /* Only scale on hover */
 }
 .next-project {
-    right: 5%; /* Stick the next arrow to the right side */
+    right: 6%; /* Stick the next arrow to the right side */
     top: 58%;
     position: absolute;
 transform: translate(-50%, -50%) rotate(270deg);

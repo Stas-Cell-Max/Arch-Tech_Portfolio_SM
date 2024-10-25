@@ -6,151 +6,130 @@ const close = document.querySelector(".close"); // Modal close button
 const prevBtn = document.querySelector(".prevBtn"); // Modal 'Prev' arrow
 const nextBtn = document.querySelector(".nextBtn"); // Modal 'Next' arrow
 
-let currentImageIndex; // To track the current image index
-let zoomLevel = 1; // Track zoom level for each image
-let isDragging = false; // To track if the image is being dragged
-let startX = 0; // Track the initial X position of the mouse when dragging starts
-let startY = 0; // Track the initial Y position of the mouse when dragging starts
-let offsetX = 0; // The current X translation of the image
-let offsetY = 0; // The current Y translation of the image
-let maxOffsetX = 0; // Maximum allowed X offset for dragging
-let maxOffsetY = 0; // Maximum allowed Y offset for dragging
+let currentImageIndex;
+let zoomLevel = 1;
+let isDragging = false;
+let startX = 0;
+let startY = 0;
+let offsetX = 0;
+let offsetY = 0;
+let maxOffsetX = 0;
+let maxOffsetY = 0;
 
-// Open the modal and show the clicked image
 images.forEach((image, index) => {
   image.addEventListener("click", () => {
-    currentImageIndex = index;  // Set the current image index when an image is clicked
+    currentImageIndex = index;
     showImage(currentImageIndex);
-    modal.classList.add("appear"); // Show the modal
+    modal.classList.add("appear");
 
     // Add keyboard navigation functionality
     document.addEventListener("keydown", handleKeyboardNavigation);
   });
 });
 
-// Function to display the current image in the modal
 function showImage(index) {
-  modalImg.src = images[index].src; // Set the modal image source
-  modalTxt.innerHTML = images[index].alt; // Set the modal text (alt text)
-  modalImg.style.transform = `translate(0px, 0px) scale(1)`; // Reset zoom and position when switching images
-  zoomLevel = 1; // Reset zoom level
+  modalImg.src = images[index].src;
+  modalTxt.innerHTML = images[index].alt;
+  modalImg.style.transform = `translate(0px, 0px) scale(1)`;
+  zoomLevel = 1;
   offsetX = 0;
   offsetY = 0;
-  modalImg.style.cursor = "default"; // Reset cursor when zoom level is 1
-  document.querySelector(".close").focus(); // Auto focus on the close button
+  modalImg.style.cursor = "default";
+  close.focus();
 }
 
-// Handle keyboard navigation within the modal
 function handleKeyboardNavigation(e) {
-  if (e.keyCode === 37) {  // Left arrow key
-    prevImage();
-  } else if (e.keyCode === 39) {  // Right arrow key
-    nextImage();
-  } else if (e.keyCode === 27) {  // Escape key
-    closeModal();
-  }
+  if (e.keyCode === 37) prevImage();
+  else if (e.keyCode === 39) nextImage();
+  else if (e.keyCode === 27) closeModal();
 }
 
-// Function to show the previous image
 function prevImage() {
-  currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;  // Go to the previous image, wrapping around
-  showImage(currentImageIndex); // Show the previous image
+  currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+  showImage(currentImageIndex);
 }
 
-// Function to show the next image
 function nextImage() {
-  currentImageIndex = (currentImageIndex + 1) % images.length;  // Go to the next image, wrapping around
-  showImage(currentImageIndex); // Show the next image
+  currentImageIndex = (currentImageIndex + 1) % images.length;
+  showImage(currentImageIndex);
 }
 
-// Close the modal
 function closeModal() {
-  modal.classList.remove("appear"); // Hide the modal
-  zoomLevel = 1; // Reset zoom when modal closes
+  modal.classList.remove("appear");
+  zoomLevel = 1;
   modalImg.style.transform = `scale(${zoomLevel})`;
-  document.removeEventListener("keydown", handleKeyboardNavigation);  // Remove the keyboard navigation when modal is closed
+  document.removeEventListener("keydown", handleKeyboardNavigation);
 }
 
-// Event listener for 'Prev' arrow button
 prevBtn.addEventListener("click", prevImage);
-
-// Event listener for 'Next' arrow button
 nextBtn.addEventListener("click", nextImage);
-
-// Event listener for closing the modal
 close.addEventListener("click", closeModal);
+close.addEventListener("touchend", closeModal);
 
-// Zoom in/out with mouse wheel
 modalImg.addEventListener("wheel", (e) => {
-  e.preventDefault(); // Prevent default scrolling
+  e.preventDefault();
 
-  const rect = modalImg.getBoundingClientRect(); // Get image dimensions
-  const offsetXRel = (e.clientX - rect.left) / modalImg.width; // Relative X position
-  const offsetYRel = (e.clientY - rect.top) / modalImg.height; // Relative Y position
+  const rect = modalImg.getBoundingClientRect();
+  const offsetXRel = (e.clientX - rect.left) / modalImg.width;
+  const offsetYRel = (e.clientY - rect.top) / modalImg.height;
 
-  // Zoom logic
-  if (e.deltaY < 0) {
-    // Scroll up, zoom in
-    zoomLevel += 0.1;
-  } else {
-    // Scroll down, zoom out
-    zoomLevel -= 0.1;
-  }
+  zoomLevel = e.deltaY < 0 ? zoomLevel + 0.1 : zoomLevel - 0.1;
+  zoomLevel = Math.min(Math.max(1, zoomLevel), 3);
 
-  // Set boundaries to prevent zooming out too far
-  zoomLevel = Math.min(Math.max(1, zoomLevel), 3); // Zoom between 100% and 300%
-
-  // Calculate max offset to prevent dragging the image off the screen
   const imgWidth = modalImg.width * zoomLevel;
   const imgHeight = modalImg.height * zoomLevel;
   maxOffsetX = Math.max(0, (imgWidth - modal.clientWidth) / 2);
   maxOffsetY = Math.max(0, (imgHeight - modal.clientHeight) / 2);
 
-  // Calculate the new offset after zoom, staying within boundaries
   offsetX = Math.min(Math.max(offsetX - offsetXRel * modalImg.width * (zoomLevel - 1), -maxOffsetX), maxOffsetX);
   offsetY = Math.min(Math.max(offsetY - offsetYRel * modalImg.height * (zoomLevel - 1), -maxOffsetY), maxOffsetY);
 
-  // Apply the zoom and translation
   modalImg.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${zoomLevel})`;
   modalImg.style.transition = "transform 0.2s ease-in-out";
-
-  // Change cursor to grab if zoom level is greater than 1
   modalImg.style.cursor = zoomLevel > 1 ? "grab" : "default";
 });
 
-// Drag functionality
+function endDrag() {
+  isDragging = false;
+  modalImg.style.cursor = zoomLevel > 1 ? "grab" : "default";
+  document.removeEventListener("mousemove", dragImage);
+  document.removeEventListener("mouseup", endDrag);
+}
+
+function dragImage(e) {
+  if (!isDragging) return;
+
+  e.preventDefault();
+  offsetX = Math.min(Math.max(e.pageX - startX, -maxOffsetX), maxOffsetX);
+  offsetY = Math.min(Math.max(e.pageY - startY, -maxOffsetY), maxOffsetY);
+  modalImg.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${zoomLevel})`;
+}
+
 modalImg.addEventListener("mousedown", (e) => {
-  if (zoomLevel > 1) { // Enable dragging only when zoomed in
-    isDragging = true;
-    startX = e.pageX - offsetX; // Calculate starting X position
-    startY = e.pageY - offsetY; // Calculate starting Y position
-    modalImg.style.cursor = "grabbing"; // Change cursor to grabbing
-  }
+  if (zoomLevel <= 1) return;
+
+  isDragging = true;
+  startX = e.pageX - offsetX;
+  startY = e.pageY - offsetY;
+  modalImg.style.cursor = "grabbing";
+  document.addEventListener("mousemove", dragImage);
+  document.addEventListener("mouseup", endDrag);
 });
 
-modalImg.addEventListener("mousemove", (e) => {
-  if (isDragging) {
-    e.preventDefault(); // Prevent default image drag
+modalImg.addEventListener("mouseleave", endDrag);
 
-    // Calculate new offsets
-    offsetX = e.pageX - startX;
-    offsetY = e.pageY - startY;
-
-    // Keep the image within the modal bounds
-    offsetX = Math.min(Math.max(offsetX, -maxOffsetX), maxOffsetX);
-    offsetY = Math.min(Math.max(offsetY, -maxOffsetY), maxOffsetY);
-
-    // Apply the translation and zoom
-    modalImg.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${zoomLevel})`;
-  }
+// Mobile navigation toggle
+document.querySelector(".back-portfolio")?.addEventListener("touchend", () => {
+  window.location.href = "index.html#portfolio";
 });
 
-modalImg.addEventListener("mouseup", () => {
-  isDragging = false;
-  modalImg.style.cursor = zoomLevel > 1 ? "grab" : "default"; // Change back to grab if zoomed in
+const menuToggle = document.getElementById("menuToggle");
+const mobileNav = document.getElementById("mobileNav");
+menuToggle?.addEventListener("click", () => {
+  mobileNav?.classList.toggle("hidden");
 });
 
-modalImg.addEventListener("mouseleave", () => {
-  isDragging = false;
-  modalImg.style.cursor = zoomLevel > 1 ? "grab" : "default"; // Reset cursor
+const headerToggle = document.querySelector("#headerToggle");
+headerToggle?.addEventListener("click", () => {
+  document.body.classList.toggle("header-visible");
 });

@@ -31,7 +31,7 @@ body {
 
 .images {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
+  grid-template-columns: repeat(5, 1fr); /* Responsive grid */
   grid-gap: 1em;
   margin: 20px 0; /* Space around the images */
   
@@ -39,6 +39,8 @@ body {
 
 .images img {
   width: 100%;
+  height: 200px; 
+  object-fit: cover;
   cursor: pointer;
   transition: 0.3s all ease;
   background-color: aliceblue;
@@ -56,13 +58,14 @@ body {
     left: 0;
     width: 100vw; /* Full width */
     height: 100vh; /* Full height */
-    background-color: rgba(236, 230, 230, 0.7);
+    background-color: rgba(97, 90, 90, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
     opacity: 0; /* Initially hidden */
     pointer-events: none;
     transition: opacity 0.3s ease-in-out; /* Smooth transition */
+    z-index: 50;
  
 }
 
@@ -76,14 +79,38 @@ body {
 }
 
 .modalImg {
-  padding-top: 15px;
+  padding-top: 25px;
   width: 90%;  /* Make the image width 90% of the viewport width */
   max-width: 95vw;  /* Ensure the image doesn't go beyond the viewport width */
   max-height: 95vh;  /* Ensure the image doesn't exceed the viewport height */
   margin: auto;  /* Center the image within the modal */
   position: relative;
   background-color: #fff;
+  cursor: grab;
+  
 }
+
+.modalImg::before {
+    content: "\f00e"; /* FontAwesome icon code for magnifying glass */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 2rem;
+    color: rgba(176, 31, 31, 0.8);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 555; 
+  }
+  
+  .modalImg:hover::before {
+    opacity: 1; /* Show zoom icon when hovered */
+  }
+
+
 
 .modalTxt {
   margin-top: 1em;
@@ -144,10 +171,9 @@ body {
   .modal.appear ~ .navigation-buttons {
     display: none;
   }
-  .modalImg {
-    cursor: grab; /* Add a grab cursor when the image is draggable */
-  }
-  
+ 
+ 
+
 
 
   .arrow {

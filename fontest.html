@@ -1,0 +1,37 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test FontAwesome</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    .testImg {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      background-color: #ccc;
+    }
+
+    .testImg::before {
+      content: "\f00e";
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      font-size: 2rem;
+      color: rgba(255, 255, 255, 0.8);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .testImg:hover::before {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="testImg"></div>
+</body>
+</html>

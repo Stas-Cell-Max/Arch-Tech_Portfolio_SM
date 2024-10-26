@@ -111,7 +111,7 @@ input, select, textarea {
 
 	h1, h2, h3, h4, h5, h6 {
 		font-weight: 300;
-		color: #666;
+		color: #2b2828;
 		line-height: 1.5em;
 	}
 
@@ -121,7 +121,7 @@ input, select, textarea {
 	}
 
 		h1 a strong, h2 a strong, h3 a strong, h4 a strong, h5 a strong, h6 a strong {
-			color: #333;
+			color: #2b2828;
 		}
 
 	h2 {
@@ -130,11 +130,11 @@ input, select, textarea {
 	}
 
 		h2.alt {
-			color: #888;
+			color: #2b2828;
 		}
 
 			h2.alt strong {
-				color: #666;
+				color: #2b2828;
 			}
 
 	h3 {
@@ -203,6 +203,7 @@ input, select, textarea {
 
 	p, ul, ol, dl, table {
 		margin-bottom: 2em;
+		color: #0f0e0e;
 	}
 
 	br.clear {
@@ -1754,14 +1755,15 @@ input, select, textarea {
 		}
 
 		.image.avatar48 {
-			width: 68px;
-			height: 68px;
-			background: #f00;
+			width: 70px;
+			height: 70px;
+			border-radius: 50%;
 		}
 
 			.image.avatar48 img {
 				width: 100px;
 				height: 100px;
+				border-radius: 50%;
 			}
 
 		.image.fit {
@@ -1984,10 +1986,11 @@ input, select, textarea {
 	}
 
 		.item header {
-			background: #fff;
+			background: #83908d;
 			margin: 0;
 			padding: 1em 0 1em 0;
 			font-size: 0.8em;
+			box-shadow: inset 0 0 0.25em 0 rgba(0, 0, 0, 0.125);
 		}
 
 			.item header h3 {
@@ -2011,7 +2014,7 @@ input, select, textarea {
 			line-height: 1;
 			text-transform: none !important;
 			font-family: 'Font Awesome 5 Free';
-			font-weight: 400;
+			font-weight: 500;
 		}
 
 		.icon:before {
@@ -2077,12 +2080,12 @@ input, select, textarea {
 			}
 
 		#header .icons {
-			font-size: 0.8em;
+			font-size: 0.em;
 			text-align: center;
 		}
 
 			#header .icons a {
-				color: #41484c;
+				color: #81918E;
 				-moz-transition: color 0.35s ease-in-out;
 				-webkit-transition: color 0.35s ease-in-out;
 				-ms-transition: color 0.35s ease-in-out;
@@ -2104,15 +2107,16 @@ input, select, textarea {
 			position: relative;
 			color: #fff;
 			font-weight: 600;
-			font-size: 1em;
+			font-size: 0.9em;
 			line-height: 1em;
+			padding-top: 15%;
 		}
 
 		#logo p {
 			position: relative;
 			display: block;
 			font-size: 0.6em;
-			color: rgba(255, 255, 255, 0.5);
+			color: #a9c4d2;
 			line-height: 1.25em;
 			margin: 0.5em 0 0 0;
 		}
@@ -2121,6 +2125,7 @@ input, select, textarea {
 			position: absolute;
 			left: 0;
 			top: 0;
+			border-radius: 50%;
 		}
 
 	#nav ul {
@@ -2343,6 +2348,7 @@ input, select, textarea {
 			#logo .image {
 				position: relative;
 				margin: 0 0 0.5em 0;
+				border-radius: 50%;
 			}
 
 			#nav ul li a {
@@ -2630,5 +2636,200 @@ input, select, textarea {
 				}
 
 	}
-
 	
+	#portfolio {
+		position: relative;
+		background-color: #81918E; /* Darker base color */
+		color: #201e1e; /* Light text color for readability */
+	}
+
+	#portfolio .item {
+		position: relative;
+		overflow: hidden;
+	}
+
+
+/* Text overlay styling */
+#portfolio .item .overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(255, 255, 255); /* Light grey text color */
+    font-size: 0.7em;
+	font-weight: 600;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    pointer-events: none; /* Prevent interference with hover */
+    z-index: 2; /* Ensure text is above the overlay */
+	text-shadow: 2px 2px 6px rgba(0, 0, 0, 3), /* Dark shadow */
+                 -2px -2px 6px rgba(0, 0, 0, 3); /* Multi-directional shadow */
+	
+}
+
+	/* Hover effect for portfolio images */
+#portfolio .item .image.fit {
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#portfolio .item .image.fit:hover {
+    transform: scale(1.05); /* Slight zoom */
+    box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+}
+
+#portfolio .item .image.fit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2); /* Dark overlay */
+    z-index: 1; /* Ensure overlay appears below text */
+    transition: opacity 0.3s ease;
+}
+/* Show overlay text on hover */
+#portfolio .item:hover .overlay-text {
+    opacity: 1; /* Fade in overlay text */
+}
+
+#portfolio .item .image.fit:hover::before {
+    opacity: 1;
+}
+/* Reveal overlay text on hover */
+.item:hover .overlay-text {
+    opacity: 1;
+    z-index: 2; /* Keep text above the overlay */
+}
+
+
+	/* Overlay effect for portfolio background */
+#portfolio::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #81918E; /* Semi-transparent overlay */
+    z-index: 1;
+}
+
+#portfolio .container {
+    position: relative;
+    z-index: 2; /* Keep content above the overlay */
+}
+
+/* Adjust text colors in portfolio items */
+#portfolio h2, 
+#portfolio h3 {
+    color: #fff; /* Light text color for headers */
+}
+
+/* Darker background for the contact section */
+#contact {
+    position: relative;
+    background-color: #333; /* Same darker base color */
+    color: #fff; /* Light text color for readability */
+}
+
+/* Overlay effect for contact background */
+#contact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #81918E; /* Semi-transparent overlay */
+    z-index: 1;
+}
+
+#contact .container {
+    position: relative;
+    z-index: 2; /* Keep content above the overlay */
+}
+
+/* Adjust text colors in contact section */
+#contact p, #contact h2{
+	color: #fff;
+}
+
+#contact form input[type="text"], 
+#contact form input[type="email"], 
+#contact form textarea,
+#contact form input[type="submit"] {
+    color: #fff; /* Light color for text and input fields */
+    background-color: rgba(93, 88, 88, 0.1); /* Slight transparency for form fields */
+    border: 1px solid #b8baba; /* Subtle border for form fields */
+}
+
+#resume .container {
+    padding: 0 10px; /* Space between container edge and boxes */
+}
+/* Resume section styling */
+#resume .resume-content {
+    display: flex;
+    gap: 20px; /* Space between columns */
+	justify-content: space-between;
+    margin-top: 2em;
+}
+
+#resume .column {
+    flex: 1;
+    max-width: 100%;
+}
+
+#resume .column h3 {
+    text-align: center;
+    color: #333;
+    font-size: 1.5em;
+    margin-bottom: 1em;
+}
+
+#resume .box {
+    background-color: #f4f4f4; /* Light background for each box */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Space between boxes */
+	width: 100%;
+
+}
+
+#resume .box h4 {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 0.5em;
+}
+
+#resume .box h5 {
+    font-size: 1em;
+    color: #777;
+    margin-bottom: 0.5em;
+}
+
+#resume .box p {
+    font-size: 0.9em;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    #resume .resume-content {
+        flex-direction: column; /* Stacks columns vertically */
+        align-items: center; /* Centers the boxes in one column */
+    }
+
+    #resume .column {
+        max-width: 100%; /* Allows full-width boxes */
+    }
+
+    #resume .box {
+        width: 100%; /* Full width within the column */
+    }
+}

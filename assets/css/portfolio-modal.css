@@ -176,9 +176,10 @@ body {
   cursor: pointer;
   z-index: 7; /* Ensure it's above other modal content */
   background-color: rgba(137, 128, 128, 0.5);
-  padding: 0.3em 0.7em;
-  border-radius: 25%;  /* Rounded button */
+  padding: 0.12em 0.7em;
+  border-radius: 15%;  /* Rounded button */
   width: 70px;
+  height: 40px;
 }
 
 .close:hover {

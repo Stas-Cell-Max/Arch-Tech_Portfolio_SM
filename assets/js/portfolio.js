@@ -39,6 +39,7 @@ function showImage(index) {
   offsetY = 0;
   modalImg.style.cursor = "default";
   close.focus();
+  toggleBodyScroll(true); // Disable background scrolling
 }
 
 function handleKeyboardNavigation(e) {
@@ -62,6 +63,7 @@ function closeModal() {
   zoomLevel = 1;
   modalImg.style.transform = `scale(${zoomLevel})`;
   document.removeEventListener("keydown", handleKeyboardNavigation);
+  toggleBodyScroll(false); // Enable background scrolling
 }
 
 // Close modal on button or touch event
@@ -75,22 +77,34 @@ modalImg.addEventListener("wheel", (e) => {
   e.preventDefault();
 
   const rect = modalImg.getBoundingClientRect();
-  const offsetXRel = (e.clientX - rect.left) / modalImg.width;
-  const offsetYRel = (e.clientY - rect.top) / modalImg.height;
+  const offsetXRel = (e.clientX - rect.left) / modalImg.width; // Relative X position
+  const offsetYRel = (e.clientY - rect.top) / modalImg.height; // Relative Y position
 
+  // Adjust zoom level based on scroll direction
+  const oldZoomLevel = zoomLevel;
   zoomLevel = e.deltaY < 0 ? zoomLevel + 0.1 : zoomLevel - 0.1;
-  zoomLevel = Math.min(Math.max(1, zoomLevel), 3);
+  zoomLevel = Math.min(Math.max(1, zoomLevel), 3); // Restrict zoom level within range
 
+  // Calculate the change in scale
+  const scaleChange = zoomLevel / oldZoomLevel;
+
+  // Adjust offset to zoom at the pointer location
+  offsetX = offsetX - (offsetXRel * modalImg.width) * (scaleChange - 1);
+  offsetY = offsetY - (offsetYRel * modalImg.height) * (scaleChange - 1);
+
+  // Calculate max offset to prevent dragging off-screen
   const imgWidth = modalImg.width * zoomLevel;
   const imgHeight = modalImg.height * zoomLevel;
   maxOffsetX = Math.max(0, (imgWidth - modal.clientWidth) / 2);
   maxOffsetY = Math.max(0, (imgHeight - modal.clientHeight) / 2);
 
-  offsetX = Math.min(Math.max(offsetX - offsetXRel * modalImg.width * (zoomLevel - 1), -maxOffsetX), maxOffsetX);
-  offsetY = Math.min(Math.max(offsetY - offsetYRel * modalImg.height * (zoomLevel - 1), -maxOffsetY), maxOffsetY);
+  // Clamp offset values to stay within boundaries
+  offsetX = Math.min(Math.max(offsetX, -maxOffsetX), maxOffsetX);
+  offsetY = Math.min(Math.max(offsetY, -maxOffsetY), maxOffsetY);
 
+  // Apply transform for zoom and position
   modalImg.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${zoomLevel})`;
-  modalImg.style.transition = "transform 0.2s ease-in-out";
+  modalImg.style.transition = "transform 0.2s ease-in-out"; // Smooth transition
   modalImg.style.cursor = zoomLevel > 1 ? "grab" : "default";
 });
 
@@ -192,3 +206,8 @@ modalImg.addEventListener("touchend", (e) => {
 function getDistance(touch1, touch2) {
   return Math.sqrt((touch1.pageX - touch2.pageX) ** 2 + (touch1.pageY - touch2.pageY) ** 2);
 }
+
+function toggleBodyScroll(disableScroll) {
+    document.body.style.overflow = disableScroll ? 'hidden' : 'auto';
+  }
+  

@@ -248,10 +248,10 @@
 								<h2>Contact</h2>
 							</header>
 
-							<p>Elementum sem parturient nulla quam placerat viverra
-							mauris non cum elit tempus ullamcorper dolor. Libero rutrum ut lacinia
-							donec curae mus. Eleifend id porttitor ac ultricies lobortis sem nunc
-							orci ridiculus faucibus a consectetur. Porttitor curae mauris urna mi dolor.</p>
+							<p>
+								Let’s connect to discuss how my experience can elevate your next project.
+							
+							</p>
 
 							<form method="post" action="#">
 								<div class="row">
@@ -289,6 +289,44 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			
+			
+			<script>
+				// Create cursor elements
+				const cursorVertical = document.createElement("div");
+				const cursorHorizontal = document.createElement("div");
+				const cursorCenter = document.createElement("div");
+			
+				// Apply respective classes
+				cursorVertical.classList.add("custom-cursor-vertical");
+				cursorHorizontal.classList.add("custom-cursor-horizontal");
+				cursorCenter.classList.add("custom-cursor-center");
+			
+				// Append cursors to body
+				document.body.appendChild(cursorVertical);
+				document.body.appendChild(cursorHorizontal);
+				document.body.appendChild(cursorCenter);
+			
+				// Update cursor position on mouse move
+				document.addEventListener("mousemove", (e) => {
+					// Position the vertical line around the mouse, offset by 17px to center it (35px / 2)
+					cursorVertical.style.left = `${e.clientX}px`;
+					cursorVertical.style.top = `${e.clientY - 17}px`; 
+					
+					// Position the horizontal line around the mouse, offset by 17px to center it (35px / 2)
+					cursorHorizontal.style.left = `${e.clientX - 17}px`; 
+					cursorHorizontal.style.top = `${e.clientY}px`;
+					
+					// Position the center square at the mouse position
+					cursorCenter.style.left = `${e.clientX - 4}px`; // Offset to center the square
+					cursorCenter.style.top = `${e.clientY - 4}px`;  // Offset to center the square
+				});
+			</script>
+			
+			
+			
+		
+
 
 	</body>
 </html>

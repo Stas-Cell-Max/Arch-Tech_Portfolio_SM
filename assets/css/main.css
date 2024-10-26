@@ -2785,14 +2785,14 @@ input, select, textarea {
 
 #resume .column h3 {
     text-align: center;
-    color: #333;
+    color: #080808;
     font-size: 1.5em;
     margin-bottom: 1em;
 }
 
 #resume .box {
     background-color: #f4f4f4; /* Light background for each box */
-    padding: 20px;
+    padding: 10px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px; /* Space between boxes */
@@ -2808,13 +2808,13 @@ input, select, textarea {
 
 #resume .box h5 {
     font-size: 1em;
-    color: #777;
+    color: #000000;
     margin-bottom: 0.5em;
 }
 
 #resume .box p {
     font-size: 0.9em;
-    color: #666;
+    color: #121111;
     line-height: 1.6;
 }
 
@@ -2833,3 +2833,67 @@ input, select, textarea {
         width: 100%; /* Full width within the column */
     }
 }
+
+/* Custom AutoCAD-style crosshair cursor */
+.custom-cursor-vertical,
+.custom-cursor-horizontal {
+    position: fixed;
+    background: #030303; /* White color for visibility */
+    pointer-events: none;
+    z-index: 1000;
+}
+
+/* Vertical line styling - 35px height */
+.custom-cursor-vertical {
+    width: 1px;
+    height: 40px;
+}
+
+/* Horizontal line styling - 35px width */
+.custom-cursor-horizontal {
+    width: 40px;
+    height: 1px;
+}
+
+/* Center square styling */
+.custom-cursor-center {
+    position: fixed;
+    width: 8px; /* Size of the square */
+    height: 8px;
+    background: #ffffff;
+    border: 1px solid #000000; /* Black border for contrast */
+    pointer-events: none;
+    z-index: 1001;
+}
+
+/* Hide the default cursor */
+body {
+    cursor: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -9,6 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+		
 
 	</head>
 	<body class="is-preload">
@@ -253,19 +254,25 @@
 							
 							</p>
 
-							<form method="post" action="#">
-								<div class="row">
-									<div class="col-6 col-12-mobile"><input type="text" name="name" placeholder="Name" /></div>
-									<div class="col-6 col-12-mobile"><input type="text" name="email" placeholder="Email" /></div>
-									<div class="col-12">
-										<textarea name="message" placeholder="Message"></textarea>
-									</div>
-									<div class="col-12">
-										<input type="submit" value="Send Message" />
-									</div>
-								</div>
-							</form>
-
+							  <!-- Email Button -->
+							  <a class="button" href="mailto:info@stasportfolio.com" 
+							  data-eventcategory="Mail from contact" 
+							  data-eventaction="Click to action" 
+							  data-eventlabel="info@stasportfolio.com">
+							  Write me an email <br />
+						   </a> 
+                           <br />
+						    <!-- Social Media Follow Paragraph -->
+                             <p>... or feel free to follow me on social media :</p>
+        
+        <!-- Social Media Icons -->
+        <ul class="icons">
+            <li><a href="https://instagram.com/stas_moozan" class="icon brands fa-instagram" target="_blank"><span class="label">Instagram</span></a></li>
+            <li><a href="https://facebook.com/stas.moozan" class="icon brands fa-facebook-f" target="_blank"><span class="label">Facebook</span></a></li>
+            <li><a href="https://github.com/Stas-Cell-Max" class="icon brands fa-github" target="_blank"><span class="label">Github</span></a></li>
+            <li><a href="https://linkedin.com/in/stanislavmorozan" class="icon brands fa-linkedin" target="_blank"><span class="label">LinkedIn</span></a></li>
+        </ul>
+													
 						</div>
 					</section>
 
@@ -290,7 +297,6 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			
-			
 			<script>
 				// Create cursor elements
 				const cursorVertical = document.createElement("div");
@@ -309,23 +315,32 @@
 			
 				// Update cursor position on mouse move
 				document.addEventListener("mousemove", (e) => {
-					// Position the vertical line around the mouse, offset by 17px to center it (35px / 2)
+					// Position the vertical line
 					cursorVertical.style.left = `${e.clientX}px`;
-					cursorVertical.style.top = `${e.clientY - 17}px`; 
-					
-					// Position the horizontal line around the mouse, offset by 17px to center it (35px / 2)
-					cursorHorizontal.style.left = `${e.clientX - 17}px`; 
+					cursorVertical.style.top = `${e.clientY - 20}px`;
+			
+					// Position the horizontal line
+					cursorHorizontal.style.left = `${e.clientX - 20}px`;
 					cursorHorizontal.style.top = `${e.clientY}px`;
-					
-					// Position the center square at the mouse position
-					cursorCenter.style.left = `${e.clientX - 4}px`; // Offset to center the square
-					cursorCenter.style.top = `${e.clientY - 4}px`;  // Offset to center the square
+			
+					// Position the center square
+					cursorCenter.style.left = `${e.clientX - 4}px`;
+					cursorCenter.style.top = `${e.clientY - 4}px`;
+				});
+			
+				// Toggle crosshair visibility when hovering over pointer elements
+				const pointerElements = document.querySelectorAll("a, button, img");
+			
+				pointerElements.forEach(element => {
+					element.addEventListener("mouseenter", () => {
+						document.body.classList.add("hide-crosshair"); // Hide crosshair on hover
+					});
+					element.addEventListener("mouseleave", () => {
+						document.body.classList.remove("hide-crosshair"); // Show crosshair when not hovering
+					});
 				});
 			</script>
 			
-			
-			
-		
 
 
 	</body>

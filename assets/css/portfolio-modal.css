@@ -19,7 +19,7 @@ body {
   justify-content: center;
   min-height: 100vh;
   align-items: center;
-  background-color: #091921;
+  background-color: #222629;
 }
 
 /* Hide the header by default on mobile screens */
@@ -29,7 +29,7 @@ body {
     left: 0;
     width: 275px;
     height: 100%;
-    background: #222629;
+    background: #81918E;;
     color: #fff;
     transform: translateX(-275px);
     transition: transform 0.5s ease;

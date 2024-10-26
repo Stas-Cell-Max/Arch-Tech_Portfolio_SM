@@ -174,7 +174,7 @@ input, select, textarea {
 	}
 
 		a:hover {
-			color: #E27689;
+			color: #5184ae;
 			border-bottom-color: rgba(255, 255, 255, 0);
 		}
 
@@ -203,7 +203,7 @@ input, select, textarea {
 
 	p, ul, ol, dl, table {
 		margin-bottom: 2em;
-		color: #0f0e0e;
+		color: #020202;
 	}
 
 	br.clear {
@@ -1758,6 +1758,7 @@ input, select, textarea {
 			width: 70px;
 			height: 70px;
 			border-radius: 50%;
+			padding-right: 50%;
 		}
 
 			.image.avatar48 img {
@@ -1870,7 +1871,7 @@ input, select, textarea {
 		form input[type="password"]:focus,
 		form select:focus,
 		form textarea:focus {
-			box-shadow: 0 0 2px 1px #8ebebc;
+			box-shadow: 0 0 2px 1px #5184ae;
 			background: #fff;
 		}
 
@@ -1967,7 +1968,7 @@ input, select, textarea {
 		input[type="reset"]:hover,
 		button:hover,
 		.button:hover {
-			background-color: #9ececc;
+			background-color: #5184ae;
 		}
 
 		input[type="button"]:active,
@@ -2098,7 +2099,7 @@ input, select, textarea {
 
 	#logo {
 		position: relative;
-		margin: 1.75em 1.5em 1.5em 1.5em;
+		margin: 1.75em 1.4em 1.4em 1.4em;
 		min-height: 48px;
 		cursor: default;
 	}
@@ -2107,18 +2108,19 @@ input, select, textarea {
 			position: relative;
 			color: #fff;
 			font-weight: 600;
-			font-size: 0.9em;
+			font-size: 0.95em;
 			line-height: 1em;
-			padding-top: 15%;
+			padding-top: 23%;
+			padding-left: 35%;
 		}
 
 		#logo p {
 			position: relative;
 			display: block;
-			font-size: 0.6em;
+			font-size: 0.63em;
 			color: #a9c4d2;
-			line-height: 1.25em;
-			margin: 0.5em 0 0 0;
+			line-height: 1.2em;
+			margin: 0.6em 0 0 0;
 		}
 
 		#logo .image {
@@ -2173,7 +2175,7 @@ input, select, textarea {
 				}
 
 					#nav ul li a.active span:before {
-						color: #e27689;
+						color: #407cad;
 					}
 
 /* Footer */
@@ -2732,8 +2734,11 @@ input, select, textarea {
 /* Darker background for the contact section */
 #contact {
     position: relative;
-    background-color: #333; /* Same darker base color */
+    background-color: #81918E;; /* Same darker base color */
     color: #fff; /* Light text color for readability */
+	padding: 3em 1.5em; /* Add some padding for spacing */
+    text-align: center;
+    border-radius: 8px;
 }
 
 /* Overlay effect for contact background */
@@ -2744,7 +2749,7 @@ input, select, textarea {
     left: 0;
     width: 100%;
     height: 100%;
-    background: #81918E; /* Semi-transparent overlay */
+	background: #81918E;; /* Semi-transparent overlay */
     z-index: 1;
 }
 
@@ -2756,16 +2761,53 @@ input, select, textarea {
 /* Adjust text colors in contact section */
 #contact p, #contact h2{
 	color: #fff;
+	margin-bottom: 1em;
 }
 
-#contact form input[type="text"], 
-#contact form input[type="email"], 
-#contact form textarea,
-#contact form input[type="submit"] {
-    color: #fff; /* Light color for text and input fields */
-    background-color: rgba(93, 88, 88, 0.1); /* Slight transparency for form fields */
-    border: 1px solid #b8baba; /* Subtle border for form fields */
+/* Email Button */
+#contact .button {
+    background-color: #8ebebc;
+    color: #fff;
+    padding: 0.75em 2em;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-bottom: 1.5em;
+    transition: background-color 0.3s ease;
 }
+
+#contact .button:hover {
+    background-color: #5184ae;
+}
+
+/* Follow Paragraph */
+#contact p.follow {
+    font-size: 1em;
+    color: #fff;
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+	padding-top: 5%;
+}
+
+/* Social Media Icons Styling */
+#contact .icons {
+    display: inline-flex;
+    gap: 15px; /* Space between icons */
+    margin-top: 1em;
+}
+
+#contact .icons a {
+    color: #ffffff;
+    font-size: 1.5em; /* Size of icons */
+    transition: color 0.3s ease;
+}
+
+#contact .icons a:hover {
+    color: #5184ae; /* Hover color for social media icons */
+}
+
+
+
 
 #resume .container {
     padding: 0 10px; /* Space between container edge and boxes */
@@ -2834,28 +2876,21 @@ input, select, textarea {
     }
 }
 
+/* Hide the default cursor */
+body {
+    cursor: none; /* Hides the default cursor across the page */
+}
+
 /* Custom AutoCAD-style crosshair cursor */
 .custom-cursor-vertical,
 .custom-cursor-horizontal {
     position: fixed;
-    background: #030303; /* White color for visibility */
+    background: #000000; /* White color for visibility */
     pointer-events: none;
     z-index: 1000;
+    transition: opacity 0.2s; /* Smooth transition */
 }
 
-/* Vertical line styling - 35px height */
-.custom-cursor-vertical {
-    width: 1px;
-    height: 40px;
-}
-
-/* Horizontal line styling - 35px width */
-.custom-cursor-horizontal {
-    width: 40px;
-    height: 1px;
-}
-
-/* Center square styling */
 .custom-cursor-center {
     position: fixed;
     width: 8px; /* Size of the square */
@@ -2864,36 +2899,29 @@ input, select, textarea {
     border: 1px solid #000000; /* Black border for contrast */
     pointer-events: none;
     z-index: 1001;
+    transition: opacity 0.2s; /* Smooth transition */
 }
 
-/* Hide the default cursor */
-body {
-    cursor: none;
+/* Short vertical line */
+.custom-cursor-vertical {
+    width: 1px;
+    height: 40px; /* Short height */
 }
 
+/* Short horizontal line */
+.custom-cursor-horizontal {
+    width: 40px; /* Short width */
+    height: 1px;
+}
 
+/* Hide crosshair on interactive elements */
+.hide-crosshair .custom-cursor-vertical,
+.hide-crosshair .custom-cursor-horizontal,
+.hide-crosshair .custom-cursor-center {
+    opacity: 0; /* Hide crosshair */
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* Show pointer cursor on specific interactive elements */
+a:hover, button:hover, img:hover {
+    cursor: pointer;
+}

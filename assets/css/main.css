@@ -110,7 +110,7 @@ input, select, textarea {
 	}
 
 	h1, h2, h3, h4, h5, h6 {
-		font-weight: 300;
+		font-weight: 400;
 		color: #2b2828;
 		line-height: 1.5em;
 	}
@@ -121,16 +121,17 @@ input, select, textarea {
 	}
 
 		h1 a strong, h2 a strong, h3 a strong, h4 a strong, h5 a strong, h6 a strong {
-			color: #2b2828;
+			color: #080808;
 		}
 
 	h2 {
 		font-size: 2em;
 		letter-spacing: -1px;
+		font-weight: 400;
 	}
 
 		h2.alt {
-			color: #2b2828;
+			color: #050505;
 		}
 
 			h2.alt strong {
@@ -2638,6 +2639,8 @@ input, select, textarea {
 				}
 
 	}
+
+	/* PORTFOLIO SECTION */
 	
 	#portfolio {
 		position: relative;
@@ -2731,6 +2734,9 @@ input, select, textarea {
     color: #fff; /* Light text color for headers */
 }
 
+
+/* CONTACT SECTION */
+
 /* Darker background for the contact section */
 #contact {
     position: relative;
@@ -2738,7 +2744,7 @@ input, select, textarea {
     color: #fff; /* Light text color for readability */
 	padding: 3em 1.5em; /* Add some padding for spacing */
     text-align: center;
-    border-radius: 8px;
+    
 }
 
 /* Overlay effect for contact background */
@@ -2807,57 +2813,98 @@ input, select, textarea {
 }
 
 
-
+/* RESUME SECTION */
 
 #resume .container {
-    padding: 0 10px; /* Space between container edge and boxes */
+    padding: 0 5px; /* Space between container edge and boxes */
 }
 /* Resume section styling */
 #resume .resume-content {
     display: flex;
-    gap: 20px; /* Space between columns */
+  
 	justify-content: space-between;
     margin-top: 2em;
+	
 }
 
 #resume .column {
     flex: 1;
     max-width: 100%;
+	margin: 0 5px; 
 }
 
 #resume .column h3 {
-    text-align: center;
+    text-align: left;
     color: #080808;
-    font-size: 1.5em;
-    margin-bottom: 1em;
+    font-size: 1.3em;
+    margin-bottom: 0.5em;
 }
 
-#resume .box {
+#resume .box1{
     background-color: #f4f4f4; /* Light background for each box */
-    padding: 10px;
-    border-radius: 8px;
+	padding: 10px; 
+    border-radius: 4px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px; /* Space between boxes */
-	width: 100%;
-
+	transition: transform 0.3s ease;
 }
 
-#resume .box h4 {
-    font-size: 1.2em;
-    color: #555;
-    margin-bottom: 0.5em;
+#resume .box2{
+    background-color: #f4f4f4; /* Light background for each box */
+	padding: 10px; 
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Space between boxes */
+	transition: transform 0.3s ease;
+	padding-right: -25px;
 }
 
-#resume .box h5 {
-    font-size: 1em;
+#resume .box1:hover {
+    transform: translateY(-5px);
+}
+#resume .box2:hover {
+    transform: translateY(-5px);
+}
+
+#resume .box1 h4 {
+	font-weight: 400;
+    font-size: 0.9em;
+    color: #050505;
+	text-align: left;
+}
+#resume .box2 h4 {
+	font-weight: 400;
+    font-size: 0.9em;
+    color: #050505;
+	text-align: left;
+}
+
+#resume .box1 h5 {
+    font-size: 0.7em;
     color: #000000;
     margin-bottom: 0.5em;
+	text-align: left;
+}
+#resume .box2 h5 {
+    font-size: 0.7em;
+    color: #000000;
+    margin-bottom: 0.5em;
+	text-align: left;
 }
 
-#resume .box p {
-    font-size: 0.9em;
-    color: #121111;
-    line-height: 1.6;
+#resume .box1 p {
+    font-size: 0.65em;
+    color: #000000;
+    line-height: 1.2;
+	text-align: left;
+	font-weight: 400;
+}
+#resume .box2 p {
+    font-size: 0.65em;
+    color: #000000;
+    line-height: 1.2;
+	text-align: left;
+	font-weight: 400;
 }
 
 /* Responsive adjustments for smaller screens */
@@ -2876,7 +2923,8 @@ input, select, textarea {
     }
 }
 
-/* Hide the default cursor */
+
+/* CUSTOM CURSOR */
 body {
     cursor: none; /* Hides the default cursor across the page */
 }

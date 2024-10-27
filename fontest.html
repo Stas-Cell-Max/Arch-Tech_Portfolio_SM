@@ -1,37 +1,43 @@
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Test FontAwesome</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <style>
-    .testImg {
-      position: relative;
-      width: 300px;
-      height: 200px;
-      background-color: #ccc;
-    }
-
-    .testImg::before {
-      content: "\f00e";
-      font-family: "Font Awesome 5 Free";
-      font-weight: 900;
-      font-size: 2rem;
-      color: rgba(255, 255, 255, 0.8);
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .testImg:hover::before {
-      opacity: 1;
-    }
-  </style>
-</head>
-<body>
-  <div class="testImg"></div>
-</body>
-</html>
+<script>
+	// Create cursor elements
+	const cursorVertical = document.createElement("div");
+	const cursorHorizontal = document.createElement("div");
+	const cursorCenter = document.createElement("div");
+			
+	// Apply respective classes
+	cursorVertical.classList.add("custom-cursor-vertical");
+	cursorHorizontal.classList.add("custom-cursor-horizontal");
+	cursorCenter.classList.add("custom-cursor-center");
+			
+	// Append cursors to body
+	document.body.appendChild(cursorVertical);
+	document.body.appendChild(cursorHorizontal);
+	document.body.appendChild(cursorCenter);
+			
+	// Update cursor position on mouse move
+	document.addEventListener("mousemove", (e) => {
+		// Position the vertical line
+		cursorVertical.style.left = `${e.clientX}px`;
+		cursorVertical.style.top = `${e.clientY - 20}px`;
+			
+		// Position the horizontal line
+		cursorHorizontal.style.left = `${e.clientX - 20}px`;
+		cursorHorizontal.style.top = `${e.clientY}px`;
+			
+		// Position the center square
+		cursorCenter.style.left = `${e.clientX - 4}px`;
+		cursorCenter.style.top = `${e.clientY - 4}px`;
+	});
+			
+	// Toggle crosshair visibility when hovering over pointer elements
+	const pointerElements = document.querySelectorAll("a, button, img");
+			
+	pointerElements.forEach(element => {
+		element.addEventListener("mouseenter", () => {
+			document.body.classList.add("hide-crosshair"); // Hide crosshair on hover
+		});
+		element.addEventListener("mouseleave", () => {
+			document.body.classList.remove("hide-crosshair"); // Show crosshair when not hovering
+		});
+	});
+</script>

@@ -111,7 +111,7 @@ input, select, textarea {
 
 	h1, h2, h3, h4, h5, h6 {
 		font-weight: 400;
-		color: #2b2828;
+		color: #2b2828 !important;
 		line-height: 1.5em;
 	}
 
@@ -121,7 +121,7 @@ input, select, textarea {
 	}
 
 		h1 a strong, h2 a strong, h3 a strong, h4 a strong, h5 a strong, h6 a strong {
-			color: #080808;
+			color: #2b2828 !important;
 		}
 
 	h2 {
@@ -1948,10 +1948,10 @@ input, select, textarea {
 	.button {
 		position: relative;
 		display: inline-block;
-		border-radius: 0.35em;
+		border-radius: 0.20em;
 		color: #fff !important;
 		text-decoration: none;
-		padding: 0.75em 2.5em 0.75em 2.5em;
+		padding: 0.7em 3em 0.7em 3em;
 		background-color: #8ebebc;
 		border: 0;
 		cursor: pointer;
@@ -2235,8 +2235,9 @@ input, select, textarea {
 				}
 
 				#main > section.dark strong {
-					color: #fff;
+					color: #232121;
 					border-color: inherit;
+					font-weight: 500;
 				}
 
 				#main > section.dark a {
@@ -2652,6 +2653,7 @@ input, select, textarea {
 	#portfolio .item {
 		position: relative;
 		overflow: hidden;
+		background-color: #000000;
 	}
 
 
@@ -2710,7 +2712,13 @@ input, select, textarea {
     opacity: 1;
     z-index: 2; /* Keep text above the overlay */
 }
-
+#portfolio .item header {
+    background:#e8e6e3;
+    margin: 0;
+    padding: 1em 0 1em 0;
+    font-size: 0.8em;
+    box-shadow: inset 0 0 0.25em 0 rgba(0, 0, 0, 0.125);
+}
 
 	/* Overlay effect for portfolio background */
 #portfolio::before {
@@ -2770,12 +2778,16 @@ input, select, textarea {
 	color: #463939;
 	margin-bottom: 1em;
 }
+#contact p {
+	padding-top: 5%;
+}
 
 /* Email Button */
 #contact .button {
     background-color: #8ebebc;
     color: #fff;
-    padding: 0.75em 2em;
+    margin-top: 2%;
+	
     border-radius: 4px;
     text-decoration: none;
     font-weight: bold;
@@ -2805,8 +2817,9 @@ input, select, textarea {
 
 #contact .icons a {
     color: #463939;
-    font-size: 1.5em; /* Size of icons */
+    font-size: 1.3em; /* Size of icons */
     transition: color 0.3s ease;
+	padding-top: 30%;
 }
 
 #contact .icons a:hover {
@@ -2834,13 +2847,7 @@ input, select, textarea {
 	margin: 20px 0; 
 }
 
-#resume .column:first-child {
-    margin-left: -10%; /* Reduce left spacing for the left column */
-}
 
-#resume .column:last-child {
-    margin-right: -10%; /* Reduce right spacing for the right column */
-}
 
 #resume .column h3 {
     text-align: left;
@@ -2850,7 +2857,7 @@ input, select, textarea {
 }
 
 #resume .box1{
-    background-color: #f4f4f4; /* Light background for each box */
+    background-color: #e8e6e3; /* Light background for each box */
 	padding: 10px; 
     border-radius: 4px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -2859,7 +2866,7 @@ input, select, textarea {
 }
 
 #resume .box2{
-    background-color: #f4f4f4; /* Light background for each box */
+    background-color:#e8e6e3; /* Light background for each box */
 	padding: 10px; 
     border-radius: 4px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

@@ -1970,7 +1970,7 @@ input, select, textarea {
 		input[type="reset"]:hover,
 		button:hover,
 		.button:hover {
-			background-color: #5184ae;
+			background-color: #4673a1;
 		}
 
 		input[type="button"]:active,
@@ -2108,7 +2108,7 @@ input, select, textarea {
 
 		#logo h1 {
 			position: relative;
-			color: #fff;
+			color: #eae1d4 !important;
 			font-weight: 600;
 			font-size: 0.95em;
 			line-height: 1em;
@@ -2120,7 +2120,7 @@ input, select, textarea {
 			position: relative;
 			display: block;
 			font-size: 0.63em;
-			color: #a9c4d2;
+			color: #ede6db;
 			line-height: 1.2em;
 			margin: 0.6em 0 0 0;
 		}

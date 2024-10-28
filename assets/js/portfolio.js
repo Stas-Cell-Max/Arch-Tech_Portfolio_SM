@@ -11,12 +11,14 @@ const nextBtn = document.querySelector(".nextBtn"); // Modal 'Next' arrow
 let currentImageIndex;
 let zoomLevel = 1;
 let isDragging = false;
+let isPinching = false;
 let startX = 0;
 let startY = 0;
 let offsetX = 0;
 let offsetY = 0;
 let maxOffsetX = 0;
 let maxOffsetY = 0;
+let initialDistance = 0;
 
 // === MODAL FUNCTIONALITY ===
 
@@ -40,6 +42,14 @@ function showImage(index) {
   modalImg.style.cursor = "default";
   close.focus();
   toggleBodyScroll(true); // Disable background scrolling
+
+  // Calculate max offset based on the image size after loading
+  modalImg.onload = () => {
+    const imgWidth = modalImg.width * zoomLevel;
+    const imgHeight = modalImg.height * zoomLevel;
+    maxOffsetX = Math.max(0, (imgWidth - modal.clientWidth) / 2);
+    maxOffsetY = Math.max(0, (imgHeight - modal.clientHeight) / 2);
+  };
 }
 
 function handleKeyboardNavigation(e) {
@@ -109,22 +119,6 @@ modalImg.addEventListener("wheel", (e) => {
 });
 
 // === DRAG FUNCTIONALITY FOR ZOOMED IMAGE ===
-function endDrag() {
-  isDragging = false;
-  modalImg.style.cursor = zoomLevel > 1 ? "grab" : "default";
-  document.removeEventListener("mousemove", dragImage);
-  document.removeEventListener("mouseup", endDrag);
-}
-
-function dragImage(e) {
-  if (!isDragging) return;
-
-  e.preventDefault();
-  offsetX = Math.min(Math.max(e.pageX - startX, -maxOffsetX), maxOffsetX);
-  offsetY = Math.min(Math.max(e.pageY - startY, -maxOffsetY), maxOffsetY);
-  modalImg.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${zoomLevel})`;
-}
-
 modalImg.addEventListener("mousedown", (e) => {
   if (zoomLevel <= 1) return;
 
@@ -136,28 +130,25 @@ modalImg.addEventListener("mousedown", (e) => {
   document.addEventListener("mouseup", endDrag);
 });
 
+function dragImage(e) {
+  if (!isDragging) return;
+
+  e.preventDefault();
+  offsetX = Math.min(Math.max(e.pageX - startX, -maxOffsetX), maxOffsetX);
+  offsetY = Math.min(Math.max(e.pageY - startY, -maxOffsetY), maxOffsetY);
+  modalImg.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${zoomLevel})`;
+}
+
+function endDrag() {
+  isDragging = false;
+  modalImg.style.cursor = zoomLevel > 1 ? "grab" : "default";
+  document.removeEventListener("mousemove", dragImage);
+  document.removeEventListener("mouseup", endDrag);
+}
+
 modalImg.addEventListener("mouseleave", endDrag);
 
-// === MOBILE NAVIGATION & MENU TOGGLE ===
-document.querySelector(".back-portfolio")?.addEventListener("touchend", () => {
-  window.location.href = "index.html#portfolio";
-});
-
-const menuToggle = document.getElementById("menuToggle");
-const mobileNav = document.getElementById("mobileNav");
-menuToggle?.addEventListener("click", () => {
-  mobileNav?.classList.toggle("hidden");
-});
-
-const headerToggle = document.querySelector("#headerToggle");
-headerToggle?.addEventListener("click", () => {
-  document.body.classList.toggle("header-visible");
-});
-
 // === TOUCH EVENTS FOR ZOOMING & PANNING ON MOBILE ===
-let initialDistance = 0;
-let isPinching = false;
-
 modalImg.addEventListener("touchstart", (e) => {
   if (e.touches.length === 2) {
     isPinching = true;
@@ -171,6 +162,7 @@ modalImg.addEventListener("touchstart", (e) => {
 
 modalImg.addEventListener("touchmove", (e) => {
   e.preventDefault();
+
   if (isPinching && e.touches.length === 2) {
     const newDistance = getDistance(e.touches[0], e.touches[1]);
     const scaleChange = newDistance / initialDistance;
@@ -208,7 +200,5 @@ function getDistance(touch1, touch2) {
 }
 
 function toggleBodyScroll(disableScroll) {
-    document.body.style.overflow = disableScroll ? 'hidden' : 'auto';
-  }
-  
-  
+  document.body.style.overflow = disableScroll ? 'hidden' : 'auto';
+}

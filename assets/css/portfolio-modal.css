@@ -31,7 +31,7 @@ body {
   .project-details .heading {
     font-size: 2em;
     color: #d4d2de;
-    text-align: center;
+    text-align: left;
     margin-bottom: 1em;
   }
   
@@ -46,7 +46,7 @@ body {
   }
   
   .contributions h2 {
-    font-size: 1.5em;
+    font-size: 1.2em;
     color: #d4d2de;
     margin-bottom: 0.5em;
   }
@@ -159,10 +159,11 @@ body {
   top: 4%;
   right: 3%;
   color: #0a0a0a;
+  background-color: rgba(137, 128, 128, .5);
   font-size: 2rem;
   z-index: 7;
-  padding: .12em .7em;
-  border-radius: 15%;
+  padding: .06em .7em;
+  border-radius: 3px;
   width: 70px;
   height: 40px;
   cursor: pointer;
@@ -188,8 +189,10 @@ body {
   border: none;
   padding: .5em 1em;
   z-index: 3;
-  border-radius: 5px;
+  border-radius: 3px;
 }
+
+
 
 .modalNav button:hover {
   background-color: rgba(0, 0, 0, .8);
@@ -202,6 +205,20 @@ body {
 .nextBtn {
   right: 6%;
 }
+
+.modalTxt {
+    position: absolute;
+    top: 87%; /* Aligns with modalNav button top */
+    left: 50%;
+    transform: translateX(-50%);
+    color: #020202;
+    font-size: 1em;
+    background-color: rgba(137, 128, 128, .5);
+    padding: 0.5em 1em;
+    border-radius: 3px;
+    z-index: 45;
+  }
+  
 
 /* Navigation Buttons */
 .navigation-buttons a:hover .arrow {
